@@ -8,7 +8,7 @@ It combines Python AST parsing, pattern analysis, custom security rules, severit
 
 ## Live Demo
 
-Coming soon — Streamlit deployment.
+[Launch SecureScan Live Demo](https://securescan-vulnerability-scanner.streamlit.app)
 
 ---
 
