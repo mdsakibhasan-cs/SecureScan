@@ -1,200 +1,69 @@
 # SecureScan — Secure Code Vulnerability Scanner & Risk Analyzer
 
-SecureScan is a Python-based Static Application Security Testing (SAST) tool for detecting selected security vulnerabilities and suspicious coding patterns in Python source code.
+SecureScan is a Python-based Static Application Security Testing (SAST) tool designed to analyze Python source code for common security vulnerabilities without executing the analyzed code.
 
-It combines Python AST analysis, pattern-based detection, custom security rules, severity classification, risk analysis, security recommendations, and an interactive Streamlit dashboard.
-
-**SecureScan analyzes source code statically and does not execute the analyzed Python code.**
+It combines Python AST parsing, pattern analysis, custom security rules, severity classification, risk scoring, and actionable remediation recommendations into an interactive Streamlit dashboard.
 
 ---
 
-## 🔗 Project Links
+## Live Demo
 
-- **GitHub Repository:** https://github.com/mdsakibhasan-cs/SecureScan
-- **Live Demo:** Add your deployed Streamlit URL here after deployment
-
----
-
-## 🎯 Project Overview
-
-SecureScan was developed as a practical cybersecurity and software-engineering project focused on Static Application Security Testing.
-
-### Analysis Pipeline
-
-Source Code  
-→ AST Parsing  
-→ Pattern Analysis  
-→ Security Rule Engine  
-→ Vulnerability Detection  
-→ Severity Classification  
-→ Risk Analysis  
-→ Security Recommendations  
-→ Security Report  
-→ Interactive Dashboard
-
-The project demonstrates practical application of:
-
-- Cybersecurity
-- Secure Software Engineering
-- Static Application Security Testing
-- Python AST analysis
-- Vulnerability detection
-- Security rule engineering
-- Risk prioritization
-- Automated testing
-- Interactive security dashboards
+Coming soon — Streamlit deployment.
 
 ---
 
-## ✨ Key Features
+## Project Overview
 
-- Python source-code security scanning
-- AST-based source-code analysis
-- Regular-expression pattern analysis
-- Custom security rule engine
-- Hardcoded secret detection
-- SQL injection pattern detection
-- Command injection detection
-- Dangerous function detection
-- Weak cryptography detection
-- Insecure file-handling detection
-- Severity classification
-- Custom risk-score calculation
-- Risk-level classification
-- Security recommendations
-- Detailed vulnerability findings
-- JSON security-report generation
-- Interactive Streamlit dashboard
-- Vulnerable and safer reference samples
-- Automated testing with Pytest
-- Static analysis without executing analyzed source code
+SecureScan analyzes Python source code through the following pipeline:
+
+**Source Code → AST Parsing + Pattern Analysis → Security Rule Engine → Vulnerability Detection → Severity Classification → Risk Analysis → Recommendations → Security Report → Interactive Dashboard**
+
+The scanner is designed to identify selected security weaknesses and help developers understand their potential impact and recommended remediation.
 
 ---
 
-## 🛡️ Security Rules
+## Security Detection Categories
 
-SecureScan currently defines eight security rules.
+SecureScan currently defines rules for:
 
-### SEC001 — Hardcoded Secrets
-
-Detects potential hardcoded passwords, API keys, tokens, and similar secret-related assignments.
-
-**Severity:** High
-
-**Recommendation:** Move secrets to environment variables or a secure secret manager.
-
----
-
-### SEC002 — SQL Injection
-
-Detects selected potentially unsafe SQL execution patterns.
-
-**Severity:** High
-
-**Recommendation:** Use parameterized queries or prepared statements.
+1. Hardcoded Secrets
+2. SQL Injection
+3. Command Injection
+4. Dangerous Function Usage
+5. Weak Cryptography
+6. Insecure File Handling
+7. Input Validation Issues
+8. Suspicious Security Patterns
 
 ---
 
-### SEC003 — Command Injection
+## How SecureScan Works
 
-Detects selected potentially dangerous command-execution patterns, including unsafe use of system-level command functions.
+The `scan_source()` function follows these main steps:
 
-**Severity:** Critical
+1. Receives Python source code.
+2. Detects selected security vulnerabilities.
+3. Classifies detected findings by severity.
+4. Calculates the risk score.
+5. Determines the risk level.
+6. Generates the final security report.
 
-**Recommendation:** Avoid shell execution with untrusted input and use safe argument-based APIs.
-
----
-
-### SEC004 — Dangerous Function Usage
-
-Detects potentially dangerous Python functions such as `eval()` and `exec()`.
-
-**Severity:** High
-
-**Recommendation:** Avoid unsafe dynamic execution functions and validate inputs.
+SecureScan performs static analysis and does not execute the analyzed source code.
 
 ---
 
-### SEC005 — Weak Cryptography
+## Risk Classification
 
-Detects selected weak or outdated cryptographic algorithms, including:
+SecureScan uses a custom severity-weighted risk score.
 
-- MD5
-- SHA-1
-- DES
-- RC4
+| Severity | Weight |
+|---|---:|
+| Critical | 10 |
+| High | 7 |
+| Medium | 4 |
+| Low | 1 |
 
-**Severity:** Medium
-
-**Recommendation:** Use modern cryptographic algorithms and secure configurations.
-
----
-
-### SEC006 — Insecure File Handling
-
-Detects selected potentially unsafe file-handling patterns.
-
-**Severity:** Medium
-
-**Recommendation:** Validate file paths and restrict file access to trusted locations.
-
----
-
-### SEC007 — Input Validation
-
-Defines a rule for potentially unvalidated external input.
-
-**Severity:** Medium
-
-**Recommendation:** Validate, sanitize, and constrain untrusted input before use.
-
-**Implementation status:** The rule is currently defined, but an active detector for this category has not yet been implemented.
-
----
-
-### SEC008 — Suspicious Security Pattern
-
-Defines a rule for suspicious security-related coding patterns.
-
-**Severity:** Low
-
-**Recommendation:** Review the flagged code and apply appropriate security controls.
-
-**Implementation status:** The rule is currently defined, but an active detector for this category has not yet been implemented.
-
----
-
-## 🚨 Severity Levels
-
-| Severity | Weight | Priority |
-|---|---:|---|
-| Critical | 10 | Immediate attention |
-| High | 7 | High priority |
-| Medium | 4 | Moderate priority |
-| Low | 1 | Lower priority |
-
----
-
-## 📊 Risk Analysis
-
-SecureScan calculates a custom risk score based on the severity of detected findings.
-
-### Severity Weights
-
-- Critical = 10
-- High = 7
-- Medium = 4
-- Low = 1
-
-### Formula
-
-Risk Score = (Total Finding Severity Weight / Maximum Possible Severity Weight) × 100
-
-The maximum possible severity weight for each finding is 10.
-
-The final score is limited to 100 and rounded to two decimal places.
-
-### Risk Levels
+Risk levels are classified as:
 
 | Risk Score | Risk Level |
 |---:|---|
@@ -203,113 +72,31 @@ The final score is limited to 100 and rounded to two decimal places.
 | 25–49.99 | Medium |
 | 0–24.99 | Low |
 
-> The risk score is a custom prioritization metric created for this project. It is not a CVSS score and should not be interpreted as a complete measurement of application security.
+The risk score is a custom prioritization metric for this project and should not be interpreted as a CVSS score or a complete measurement of application security.
 
 ---
 
-## 🏗️ Project Architecture
+## Screenshots
 
-    SecureScan/
-    ├── scanner/
-    │   ├── __init__.py
-    │   ├── parser.py
-    │   ├── detector.py
-    │   ├── rules.py
-    │   ├── severity.py
-    │   ├── risk.py
-    │   ├── reporter.py
-    │   └── scanner.py
-    │
-    ├── tests/
-    │   └── test_scanner.py
-    │
-    ├── samples/
-    │   ├── vulnerable_app.py
-    │   └── safer_app.py
-    │
-    ├── reports/
-    ├── screenshots/
-    │
-    ├── app.py
-    ├── requirements.txt
-    ├── README.md
-    ├── .gitignore
-    └── LICENSE
+### 1. SecureScan Dashboard
+
+![SecureScan Dashboard](screenshots/1.dashboard.png)
+
+### 2. Vulnerable Code Scan
+
+![Vulnerable Code Scan](screenshots/2.vulnerable-scan.png)
+
+### 3. Detailed Security Findings
+
+![Detailed Security Findings](screenshots/3.detailed-findings.png)
+
+### 4. Safer Code Scan
+
+![Safer Code Scan](screenshots/4.safer-scan.png)
 
 ---
 
-## 🧩 Core Components
-
-### `scanner/parser.py`
-
-Parses Python source code using the built-in Python `ast` module and identifies syntax errors.
-
-### `scanner/detector.py`
-
-Contains the main vulnerability-detection logic.
-
-It combines:
-
-- AST analysis
-- Regular expressions
-- Security rules
-- Assignment analysis
-- Function-call analysis
-- Pattern analysis
-
-Detected vulnerabilities are returned as structured findings.
-
-### `scanner/rules.py`
-
-Contains centralized security-rule definitions.
-
-Each rule includes:
-
-- Rule ID
-- Category
-- Severity
-- Description
-- Recommendation
-
-### `scanner/severity.py`
-
-Contains severity weights used by the risk-analysis system.
-
-### `scanner/risk.py`
-
-Calculates:
-
-- Risk score
-- Risk level
-
-### `scanner/reporter.py`
-
-Generates structured security reports containing:
-
-- Source filename
-- Scan timestamp
-- Risk score
-- Risk level
-- Total findings
-- Severity counts
-- Category counts
-- Detailed findings
-
-### `scanner/scanner.py`
-
-Provides the main scanning interface.
-
-The `scan_source()` function:
-
-1. Receives Python source code.
-2. Detects vulnerabilities.
-3. Calculates the risk score.
-4. Determines the risk level.
-5. Generates the final report.
-
----
-
-## 🛠️ Technology Stack
+## Technology Stack
 
 | Area | Technology |
 |---|---|
@@ -326,7 +113,7 @@ The `scan_source()` function:
 
 ---
 
-## 📋 Requirements
+## Requirements
 
 Before running SecureScan, install:
 
@@ -337,335 +124,190 @@ Before running SecureScan, install:
 
 ---
 
-## 🚀 Installation
+## Installation
 
 ### 1. Clone the Repository
 
-    git clone https://github.com/mdsakibhasan-cs/SecureScan.git
-    cd SecureScan
+```bash
+git clone https://github.com/mdsakibhasan-cs/SecureScan.git
+cd SecureScan
+```
 
 ### 2. Create a Virtual Environment
 
 #### Windows
 
-    python -m venv .venv
-    .venv\Scripts\Activate.ps1
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+```
 
 #### Linux / macOS
 
-    python3 -m venv .venv
-    source .venv/bin/activate
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
 
 ### 3. Install Dependencies
 
-    pip install -r requirements.txt
+```bash
+pip install -r requirements.txt
+```
 
 ---
 
-## ▶️ Run the Dashboard
+## Run the Dashboard
 
-Start the application with:
+```bash
+python -m streamlit run app.py
+```
 
-    python -m streamlit run app.py
-
-Streamlit will display the local application URL in the terminal.
-
-Open the displayed URL in a web browser.
+Then open the local Streamlit URL shown in the terminal.
 
 ---
 
-## 📖 Usage
+## Usage
 
 1. Open the SecureScan dashboard.
 2. Upload a Python `.py` file or paste Python source code.
 3. Click **Scan Code**.
-4. SecureScan parses the source code.
-5. The scanner performs static security analysis.
-6. Detected findings are classified by severity.
-7. A risk score is calculated.
-8. A risk level is assigned.
-9. Security recommendations are displayed.
-10. Detailed findings can be reviewed.
-11. A JSON security report can be downloaded.
-
-**The uploaded or pasted source code is analyzed statically and is not executed by SecureScan.**
+4. Review the overall risk score and risk level.
+5. Review severity and vulnerability-category distributions.
+6. Inspect individual security findings.
+7. Review the recommended remediation steps.
+8. Download the generated JSON security report when required.
 
 ---
 
-## 🔍 Reference Vulnerable Sample
+## Reference Samples
 
-The repository includes a reference vulnerable application demonstrating multiple insecure coding patterns.
+SecureScan includes two reference applications for validation.
 
-    import os
-    import hashlib
-    import sqlite3
+### Vulnerable Sample
 
-    password = "admin123"
-    api_key = "ABC123SECRET"
+File:
 
-    user_input = input("Enter command: ")
-    os.system(user_input)
+```text
+samples/vulnerable_app.py
+```
 
-    query = "SELECT * FROM users WHERE name = '" + user_input + "'"
-    connection = sqlite3.connect("users.db")
-    connection.execute(query)
+Verified result:
 
-    hashlib.md5(password.encode())
+- **Total Findings:** 7
+- **Risk Score:** 65.71
+- **Risk Level:** High
 
-    with open(user_input, "r") as file:
-        data = file.read()
+Detected categories include:
 
-    eval(user_input)
+- Hardcoded Secrets
+- Command Injection
+- SQL Injection
+- Weak Cryptography
+- Dangerous Function Usage
+- Insecure File Handling
 
-This sample is intended for demonstrating the scanner's detection capabilities.
+### Safer Sample
 
----
+File:
 
-## 📈 Verified Vulnerable Sample Results
+```text
+samples/safer_app.py
+```
 
-The current reference vulnerable sample produces:
+Verified result:
 
-| Metric | Result |
-|---|---:|
-| Total Findings | 7 |
-| Risk Score | 65.71 |
-| Risk Level | High |
+- **Total Findings:** 0
+- **Risk Score:** 0.0
+- **Risk Level:** Low
 
-### Detected Findings
-
-| Rule | Category | Findings | Severity |
-|---|---|---:|---|
-| SEC001 | Hardcoded Secrets | 2 | High |
-| SEC002 | SQL Injection | 1 | High |
-| SEC003 | Command Injection | 1 | Critical |
-| SEC004 | Dangerous Function Usage | 1 | High |
-| SEC005 | Weak Cryptography | 1 | Medium |
-| SEC006 | Insecure File Handling | 1 | Medium |
-
-**Total: 7 findings**
+These results are specific to the included reference samples and should not be interpreted as proof of complete vulnerability-detection coverage.
 
 ---
 
-## 🔐 Reference Safer Sample
+## Testing
 
-The repository also includes a safer reference implementation demonstrating several secure-coding practices.
+SecureScan includes an automated Pytest test suite covering:
 
-    import os
-    import sqlite3
-    from pathlib import Path
+- Vulnerable source-code detection
+- Safer source-code validation
+- Empty source input
+- Syntax-error handling
 
-    password = os.environ.get("APP_PASSWORD")
+Run the tests with:
 
-    user_input = input("Enter username: ").strip()
+```bash
+pytest
+```
 
-    connection = sqlite3.connect("users.db")
-    cursor = connection.cursor()
+### Current Validation
 
-    cursor.execute(
-        "SELECT * FROM users WHERE name = ?",
-        (user_input,)
-    )
-
-    safe_directory = Path("data").resolve()
-    requested_file = (safe_directory / "example.txt").resolve()
-
-    if requested_file.is_relative_to(safe_directory):
-        with requested_file.open("r", encoding="utf-8") as file:
-            data = file.read()
-
-    print(data)
-
-The sample demonstrates:
-
-- Environment-based secret handling
-- Parameterized SQL queries
-- Path validation
-- Avoidance of unsafe dynamic execution
-- Safer file handling
+```text
+4 passed
+```
 
 ---
 
-## 📉 Verified Safer Sample Results
+## Security Design
 
-The current safer reference sample produces:
+SecureScan follows a static-analysis approach.
 
-| Metric | Result |
-|---|---:|
-| Total Findings | 0 |
-| Risk Score | 0.0 |
-| Risk Level | Low |
+The scanner:
 
-> A zero-finding result does not guarantee that the source code is secure. It only means that the currently implemented detection rules did not identify a finding in the tested sample.
+- Parses Python source code using AST.
+- Uses pattern analysis for selected security indicators.
+- Applies predefined security rules.
+- Produces structured vulnerability findings.
+- Classifies findings by severity.
+- Calculates a custom risk score.
+- Provides remediation recommendations.
+- Generates structured JSON reports.
+- Does not execute analyzed source code.
 
----
-
-## 🧪 Automated Testing
-
-SecureScan includes automated tests covering:
-
-- Vulnerable sample detection
-- Safer sample detection
-- Empty source code
-- Syntax-error source code
-
-Run the test suite with:
-
-    pytest
-
-### Current Verified Test Result
-
-    4 passed
-
-The vulnerable-sample test verifies:
-
-- 7 findings
-- Risk level: High
-- Risk score: 65.71
-
-The safer-sample test verifies:
-
-- 0 findings
-- Risk level: Low
-- Risk score: 0.0
+This design avoids executing potentially unsafe source code during scanning.
 
 ---
 
-## 🔬 Static Analysis Method
+## Project Structure
 
-SecureScan does not execute the analyzed application.
-
-The scanner follows this process:
-
-    Python Source Code
-            |
-            v
-       AST Parsing
-            |
-            v
-     Pattern Analysis
-            |
-            v
-    Security Rule Engine
-            |
-            v
-    Vulnerability Findings
-            |
-            v
-    Severity Classification
-            |
-            v
-        Risk Score
-            |
-            v
-     Recommendations
-            |
-            v
-     Security Report
-
-This architecture allows SecureScan to inspect source code while avoiding execution of potentially unsafe input.
-
----
-
-## 📊 Dashboard
-
-The Streamlit dashboard provides an interactive security-analysis interface.
-
-It includes:
-
-- Python source-code input
-- Python file upload
-- Scan Code action
-- Risk score
-- Risk level
-- Finding statistics
-- Severity distribution
-- Category distribution
-- Detailed findings
-- Security recommendations
-- JSON report download
+```text
+SecureScan/
+│
+├── scanner/
+│   ├── __init__.py
+│   ├── detector.py
+│   ├── parser.py
+│   ├── reporter.py
+│   ├── risk.py
+│   ├── rules.py
+│   ├── scanner.py
+│   └── severity.py
+│
+├── tests/
+│   └── test_scanner.py
+│
+├── samples/
+│   ├── safer_app.py
+│   └── vulnerable_app.py
+│
+├── screenshots/
+│   ├── 1.dashboard.png
+│   ├── 2.vulnerable-scan.png
+│   ├── 3.detailed-findings.png
+│   └── 4.safer-scan.png
+│
+├── reports/
+│
+├── app.py
+├── requirements.txt
+├── README.md
+├── .gitignore
+└── LICENSE
+```
 
 ---
 
-## 📄 Security Reports
-
-SecureScan generates structured reports containing:
-
-- Source
-- Scan time
-- Risk score
-- Risk level
-- Total findings
-- Severity counts
-- Category counts
-- Detailed findings
-
-Individual findings contain information such as:
-
-- Rule ID
-- Category
-- Severity
-- Description
-- Recommendation
-- Line number
-- Source-code line
-
----
-
-## 🔎 Detection Approach
-
-### Hardcoded Secrets
-
-The scanner checks selected secret-related assignment names, including:
-
-- password
-- passwd
-- api_key
-- secret
-- token
-- access_key
-
-Supported environment-based patterns using `os.environ` and `os.getenv` are excluded from the hardcoded-secret detection logic.
-
-### Command Injection
-
-The scanner checks selected command-execution functions, including:
-
-- `os.system()`
-- `os.popen()`
-
-### Dangerous Functions
-
-The scanner detects:
-
-- `eval()`
-- `exec()`
-
-### SQL Injection
-
-The scanner checks selected `.execute()` call patterns.
-
-Calls with multiple arguments are treated as parameterized-query patterns by the current implementation.
-
-This is a pattern-based implementation and is not a complete SQL data-flow or taint-analysis engine.
-
-### Weak Cryptography
-
-The scanner checks selected weak algorithms, including:
-
-- MD5
-- SHA-1
-- DES
-- RC4
-
-### Insecure File Handling
-
-The scanner checks selected `open()` patterns and recognizes a limited safe-path pattern.
-
-This is not a complete filesystem-security or path-traversal analysis engine.
-
----
-
-## ⚠️ Limitations
+## Limitations
 
 SecureScan is an educational, research, and portfolio-oriented SAST project.
 
@@ -673,34 +315,29 @@ It is not intended to replace professional security-analysis platforms.
 
 Current limitations include:
 
-- Detection is focused on selected Python security patterns.
+- The scanner focuses on selected Python security patterns.
 - Static pattern matching can produce false positives.
 - Static analysis can miss vulnerabilities.
 - Complex application-level data flows are not fully modeled.
-- Cross-file analysis is not implemented.
-- Full interprocedural analysis is not implemented.
-- Full taint analysis is not implemented.
-- SQL injection detection is pattern-based.
-- Command-injection detection is limited to selected functions.
+- Cross-file analysis is not currently implemented.
+- SQL injection detection is pattern-based rather than full data-flow analysis.
 - File-handling detection is pattern-based.
-- SEC007 currently has no active detector.
-- SEC008 currently has no active detector.
+- SEC007 and SEC008 are currently defined as security rules but do not yet have active detection logic.
 - The risk score is a custom prioritization metric.
 - The scanner currently focuses on Python source code.
-- A zero-finding result does not guarantee that the source code is secure.
-- Findings should be manually reviewed before production use.
+- A zero-finding result does not guarantee that source code is secure.
+- Security findings should be manually reviewed before production use.
 
 ---
 
-## 🔮 Future Improvements
+## Future Improvements
 
 Potential future enhancements include:
 
-- Expanded vulnerability-rule coverage
+- Expanded vulnerability rule coverage
 - Advanced data-flow analysis
 - Taint analysis
 - Cross-file analysis
-- Interprocedural analysis
 - Improved SQL injection analysis
 - Improved command-injection detection
 - Expanded input-validation detection
@@ -720,67 +357,69 @@ Potential future enhancements include:
 
 ---
 
-## 🎓 Learning Outcomes
+## Project Purpose
+
+SecureScan was developed as a practical cybersecurity and software-engineering project to explore:
+
+- Static Application Security Testing
+- Secure coding practices
+- Python AST analysis
+- Vulnerability detection
+- Security rule engineering
+- Risk prioritization
+- Automated software testing
+- Security-focused application development
+- Interactive security dashboards
+- Security report generation
+
+---
+
+## Learning Outcomes
 
 This project demonstrates practical experience with:
 
 - Python application development
-- Python AST analysis
+- AST-based source-code analysis
 - Regular-expression pattern matching
-- Static security analysis
-- Vulnerability detection
-- Security-rule engineering
+- Security vulnerability detection
+- Rule-based security analysis
 - Risk scoring
-- Secure coding concepts
 - Streamlit application development
 - Data visualization
 - Automated testing
-- Software architecture
+- Software project architecture
+- Secure software-development concepts
 - Git and GitHub workflow
 
 ---
 
-## 🎯 Project Purpose
+## Project Validation
 
-SecureScan was developed to gain practical experience in:
-
-- Static Application Security Testing
-- Secure software development
-- Source-code analysis
-- Vulnerability detection
-- Security rule engineering
-- Risk prioritization
-- Automated security testing
-- Security reporting
-- Interactive security applications
-
----
-
-## ✅ Project Validation
-
-The current implementation has been validated using reference source-code samples and automated tests.
+The project was validated using reference source-code samples and automated tests.
 
 ### Vulnerable Sample
 
-- Findings: 7
-- Risk Score: 65.71
-- Risk Level: High
+- **Findings:** 7
+- **Risk Score:** 65.71
+- **Risk Level:** High
 
 ### Safer Sample
 
-- Findings: 0
-- Risk Score: 0.0
-- Risk Level: Low
+- **Findings:** 0
+- **Risk Score:** 0.0
+- **Risk Level:** Low
 
 ### Automated Tests
 
-- Tests passed: 4
+- **4 passed**
 
-These results are specific to the included reference samples and test cases and should not be interpreted as complete vulnerability-detection coverage.
+These results are specific to the included reference samples and test cases.
+
+They should not be interpreted as evidence of complete vulnerability-detection coverage.
 
 ---
 
-## 🛡️ Security Disclaimer
+## Disclaimer
 
 SecureScan is provided for educational, research, and portfolio purposes.
 
@@ -794,7 +433,7 @@ For production applications, SecureScan should be used as one component of a bro
 
 ---
 
-## 📜 License
+## License
 
 This project is intended to be released under the MIT License.
 
@@ -802,14 +441,14 @@ See the `LICENSE` file for the complete license text.
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 **MD Sakib Hasan**
 
 Computer Science and Technology  
 Nantong University
 
-### Areas of Interest
+Areas of interest:
 
 - Cybersecurity
 - Secure Software Engineering
@@ -820,23 +459,12 @@ Nantong University
 
 ---
 
-## 📌 Project Status
+## Project Status
 
 **Completed Portfolio Project**
 
-The current implementation includes:
+Core scanner, security rules, vulnerability detection, risk analysis, dashboard, reporting, reference-sample validation, screenshots, and automated testing are implemented.
 
-- Core security scanner
-- AST-based analysis
-- Security rules
-- Vulnerability detection
-- Severity classification
-- Risk analysis
-- Security recommendations
-- Streamlit dashboard
-- JSON reporting
-- Vulnerable reference sample
-- Safer reference sample
-- Automated testing
+Current verified test status:
 
-**Current verified test status: 4 passed**
+**4 passed**
